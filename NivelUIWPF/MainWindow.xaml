@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NivelUIWPF"
         mc:Ignorable="d"
-        Title="Gestiune Farmacie - Medicament"
-        Height="650"
-        Width="1000"
+        Title="Gestiune Farmacie - Adaugare medicament"
+        Height="760"
+        Width="1050"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize"
         Background="#EEF4FF">
@@ -16,7 +16,7 @@
         <Grid Margin="20">
             <Border Background="White"
                     CornerRadius="18"
-                    Padding="24"
+                    Padding="28"
                     BorderBrush="#D9E2F1"
                     BorderThickness="1">
 
@@ -28,108 +28,148 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="240"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                               Text="Detalii medicament"
+                               Text="Administrare medicament"
                                FontSize="30"
                                FontWeight="Bold"
                                Foreground="#1F3C88"
                                Margin="0,0,0,30"/>
 
-                    <TextBlock Grid.Row="1" Grid.Column="0"
-                               Text="Nume"
-                               FontWeight="SemiBold"
-                               FontSize="20"
-                               VerticalAlignment="Center"
-                               Margin="0,0,15,15"/>
+                    <Label x:Name="lblNume"
+                           Grid.Row="1" Grid.Column="0"
+                           Content="Nume"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"
+                           Margin="0,0,15,15"/>
 
                     <TextBox x:Name="txtNume"
                              Grid.Row="1" Grid.Column="1"
-                             Height="35"
+                             Height="38"
                              Margin="0,0,0,15"
-                             IsReadOnly="True"
                              FontSize="16"
                              Background="#F9FBFF"
                              BorderBrush="#9FB3DF"/>
 
-                    <TextBlock Grid.Row="2" Grid.Column="0"
-                               Text="Pret"
-                               FontWeight="SemiBold"
-                               FontSize="20"
-                               VerticalAlignment="Center"
-                               Margin="0,0,15,15"/>
+                    <Label x:Name="lblPret"
+                           Grid.Row="2" Grid.Column="0"
+                           Content="Pret"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"
+                           Margin="0,0,15,15"/>
 
                     <TextBox x:Name="txtPret"
                              Grid.Row="2" Grid.Column="1"
-                             Height="35"
+                             Height="38"
                              Margin="0,0,0,15"
-                             IsReadOnly="True"
                              FontSize="16"
                              Background="#F9FBFF"
                              BorderBrush="#9FB3DF"/>
 
-                    <TextBlock Grid.Row="3" Grid.Column="0"
-                               Text="Producator"
-                               FontWeight="SemiBold"
-                               FontSize="20"
-                               VerticalAlignment="Center"
-                               Margin="0,0,15,15"/>
+                    <Label x:Name="lblProducator"
+                           Grid.Row="3" Grid.Column="0"
+                           Content="Producator"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"
+                           Margin="0,0,15,15"/>
 
                     <TextBox x:Name="txtProducator"
                              Grid.Row="3" Grid.Column="1"
-                             Height="35"
+                             Height="38"
                              Margin="0,0,0,15"
-                             IsReadOnly="True"
                              FontSize="16"
                              Background="#F9FBFF"
                              BorderBrush="#9FB3DF"/>
 
-                    <TextBlock Grid.Row="4" Grid.Column="0"
-                               Text="Categorie"
+                    <Label x:Name="lblCategorie"
+                           Grid.Row="4" Grid.Column="0"
+                           Content="Categorie"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"
+                           Margin="0,0,15,15"/>
+
+                    <ComboBox x:Name="cmbCategorie"
+                              Grid.Row="4" Grid.Column="1"
+                              Height="38"
+                              Margin="0,0,0,15"
+                              FontSize="16"
+                              Background="#F9FBFF"
+                              BorderBrush="#9FB3DF"/>
+
+                    <Label x:Name="lblModAdministrare"
+                           Grid.Row="5" Grid.Column="0"
+                           Content="Mod administrare"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Top"
+                           Margin="0,0,15,15"/>
+
+                    <StackPanel Grid.Row="5" Grid.Column="1" Margin="0,0,0,15">
+                        <CheckBox x:Name="chkOral" Content="Oral" FontSize="16" Margin="0,5"/>
+                        <CheckBox x:Name="chkInjectabil" Content="Injectabil" FontSize="16" Margin="0,5"/>
+                        <CheckBox x:Name="chkTopic" Content="Topic" FontSize="16" Margin="0,5"/>
+                        <CheckBox x:Name="chkInhalator" Content="Inhalator" FontSize="16" Margin="0,5"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="txtMesajEroare"
+                               Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                               Foreground="Red"
+                               FontSize="15"
                                FontWeight="SemiBold"
-                               FontSize="20"
-                               VerticalAlignment="Center"
-                               Margin="0,0,15,15"/>
+                               TextWrapping="Wrap"
+                               Visibility="Collapsed"
+                               Margin="0,10,0,20"/>
 
-                    <TextBox x:Name="txtCategorie"
-                             Grid.Row="4" Grid.Column="1"
-                             Height="35"
-                             Margin="0,0,0,15"
-                             IsReadOnly="True"
-                             FontSize="16"
-                             Background="#F9FBFF"
-                             BorderBrush="#9FB3DF"/>
+                    <StackPanel Grid.Row="7" Grid.Column="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Left">
+                        <Button x:Name="btnAdauga"
+                                Content="Adaugă"
+                                Width="170"
+                                Height="45"
+                                Margin="0,0,15,0"
+                                Background="#1F3C88"
+                                Foreground="White"
+                                FontWeight="Bold"
+                                FontSize="16"
+                                BorderThickness="0"
+                                Cursor="Hand"
+                                Click="btnAdauga_Click"/>
 
-                    <TextBlock Grid.Row="5" Grid.Column="0"
-                               Text="Mod administrare"
-                               FontWeight="SemiBold"
-                               FontSize="20"
-                               VerticalAlignment="Center"
-                               Margin="0,0,15,15"/>
-
-                    <TextBox x:Name="txtModAdministrare"
-                             Grid.Row="5" Grid.Column="1"
-                             Height="35"
-                             Margin="0,0,0,25"
-                             IsReadOnly="True"
-                             FontSize="16"
-                             Background="#F9FBFF"
-                             BorderBrush="#9FB3DF"/>
+                        <Button x:Name="btnReset"
+                                Content="Reset"
+                                Width="170"
+                                Height="45"
+                                Background="#8A94A6"
+                                Foreground="White"
+                                FontWeight="Bold"
+                                FontSize="16"
+                                BorderThickness="0"
+                                Cursor="Hand"
+                                Click="btnReset_Click"/>
+                    </StackPanel>
 
                     <Button x:Name="btnIncarca"
-                            Grid.Row="6" Grid.Column="1"
+                            Grid.Row="8" Grid.Column="1"
                             Content="Încarcă primul medicament"
                             Height="45"
-                            Width="260"
+                            Width="280"
                             HorizontalAlignment="Left"
-                            Background="#1F3C88"
+                            Margin="0,25,0,0"
+                            Background="#2E7D32"
                             Foreground="White"
                             FontWeight="Bold"
                             FontSize="16"
