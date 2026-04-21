@@ -1,0 +1,143 @@
+﻿<Window x:Class="NivelUIWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NivelUIWPF"
+        mc:Ignorable="d"
+        Title="Gestiune Farmacie - Medicament"
+        Height="650"
+        Width="1000"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Background="#EEF4FF">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="20">
+            <Border Background="White"
+                    CornerRadius="18"
+                    Padding="24"
+                    BorderBrush="#D9E2F1"
+                    BorderThickness="1">
+
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                               Text="Detalii medicament"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               Foreground="#1F3C88"
+                               Margin="0,0,0,30"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0"
+                               Text="Nume"
+                               FontWeight="SemiBold"
+                               FontSize="20"
+                               VerticalAlignment="Center"
+                               Margin="0,0,15,15"/>
+
+                    <TextBox x:Name="txtNume"
+                             Grid.Row="1" Grid.Column="1"
+                             Height="35"
+                             Margin="0,0,0,15"
+                             IsReadOnly="True"
+                             FontSize="16"
+                             Background="#F9FBFF"
+                             BorderBrush="#9FB3DF"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0"
+                               Text="Pret"
+                               FontWeight="SemiBold"
+                               FontSize="20"
+                               VerticalAlignment="Center"
+                               Margin="0,0,15,15"/>
+
+                    <TextBox x:Name="txtPret"
+                             Grid.Row="2" Grid.Column="1"
+                             Height="35"
+                             Margin="0,0,0,15"
+                             IsReadOnly="True"
+                             FontSize="16"
+                             Background="#F9FBFF"
+                             BorderBrush="#9FB3DF"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0"
+                               Text="Producator"
+                               FontWeight="SemiBold"
+                               FontSize="20"
+                               VerticalAlignment="Center"
+                               Margin="0,0,15,15"/>
+
+                    <TextBox x:Name="txtProducator"
+                             Grid.Row="3" Grid.Column="1"
+                             Height="35"
+                             Margin="0,0,0,15"
+                             IsReadOnly="True"
+                             FontSize="16"
+                             Background="#F9FBFF"
+                             BorderBrush="#9FB3DF"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0"
+                               Text="Categorie"
+                               FontWeight="SemiBold"
+                               FontSize="20"
+                               VerticalAlignment="Center"
+                               Margin="0,0,15,15"/>
+
+                    <TextBox x:Name="txtCategorie"
+                             Grid.Row="4" Grid.Column="1"
+                             Height="35"
+                             Margin="0,0,0,15"
+                             IsReadOnly="True"
+                             FontSize="16"
+                             Background="#F9FBFF"
+                             BorderBrush="#9FB3DF"/>
+
+                    <TextBlock Grid.Row="5" Grid.Column="0"
+                               Text="Mod administrare"
+                               FontWeight="SemiBold"
+                               FontSize="20"
+                               VerticalAlignment="Center"
+                               Margin="0,0,15,15"/>
+
+                    <TextBox x:Name="txtModAdministrare"
+                             Grid.Row="5" Grid.Column="1"
+                             Height="35"
+                             Margin="0,0,0,25"
+                             IsReadOnly="True"
+                             FontSize="16"
+                             Background="#F9FBFF"
+                             BorderBrush="#9FB3DF"/>
+
+                    <Button x:Name="btnIncarca"
+                            Grid.Row="6" Grid.Column="1"
+                            Content="Încarcă primul medicament"
+                            Height="45"
+                            Width="260"
+                            HorizontalAlignment="Left"
+                            Background="#1F3C88"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            FontSize="16"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="btnIncarca_Click"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Window>
