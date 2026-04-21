@@ -5,24 +5,128 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NivelUIWPF"
         mc:Ignorable="d"
-        Title="Gestiune Farmacie - Adaugare medicament"
+        Title="Gestiune Farmacie"
         Height="760"
-        Width="1050"
+        Width="1180"
+        MinWidth="900"
+        MinHeight="650"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize"
         Background="#EEF4FF">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid Margin="20">
-            <Border Background="White"
-                    CornerRadius="18"
-                    Padding="28"
-                    BorderBrush="#D9E2F1"
-                    BorderThickness="1">
+    <Window.Resources>
+        <Style x:Key="TitluSectiuneStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#1F3C88"/>
+            <Setter Property="Margin" Value="0,0,0,25"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
 
-                <Grid Margin="10">
+        <Style x:Key="EtichetaStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,15,12"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+        <Style x:Key="TextBoxStyleComun" TargetType="TextBox">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="Background" Value="#F9FBFF"/>
+            <Setter Property="BorderBrush" Value="#9FB3DF"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ComboBoxStyleComun" TargetType="ComboBox">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="Background" Value="#F9FBFF"/>
+            <Setter Property="BorderBrush" Value="#9FB3DF"/>
+        </Style>
+
+        <Style x:Key="ButonPrincipalStyle" TargetType="Button">
+            <Setter Property="MinHeight" Value="54"/>
+            <Setter Property="MinWidth" Value="160"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#1F3C88"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,0,12,12"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ButonMeniuStyle" TargetType="Button">
+            <Setter Property="MinHeight" Value="56"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#29489B"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="18">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- MENIU -->
+        <Border Grid.Column="0"
+                Background="#1F3C88"
+                CornerRadius="16"
+                Padding="18">
+            <StackPanel>
+                <TextBlock Text="Meniu"
+                           Foreground="White"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Margin="0,0,0,25"/>
+
+                <Button x:Name="btnMeniuAdministrare"
+                        Style="{StaticResource ButonMeniuStyle}"
+                        Click="btnMeniuAdministrare_Click">
+                    <TextBlock Text="Administrează&#10;medicamente"
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"/>
+                </Button>
+
+                <Button x:Name="btnMeniuCautare"
+                        Style="{StaticResource ButonMeniuStyle}"
+                        Click="btnMeniuCautare_Click">
+                    <TextBlock Text="Caută&#10;medicament"
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"/>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <!-- ZONA CONTINUT -->
+        <Border Grid.Column="2"
+                Background="White"
+                CornerRadius="16"
+                Padding="24"
+                BorderBrush="#D9E2F1"
+                BorderThickness="1">
+
+            <Grid>
+                <!-- PANOU ADMINISTRARE -->
+                <Grid x:Name="panelAdministrare">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -34,150 +138,182 @@
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="220"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                               Text="Administrare medicament"
-                               FontSize="30"
-                               FontWeight="Bold"
-                               Foreground="#1F3C88"
-                               Margin="0,0,0,30"/>
+                               Text="Administrare&#10;medicament"
+                               Style="{StaticResource TitluSectiuneStyle}"/>
 
                     <Label x:Name="lblNume"
                            Grid.Row="1" Grid.Column="0"
                            Content="Nume"
-                           FontSize="20"
-                           FontWeight="SemiBold"
-                           VerticalAlignment="Center"
-                           Margin="0,0,15,15"/>
+                           Style="{StaticResource EtichetaStyle}"/>
 
                     <TextBox x:Name="txtNume"
                              Grid.Row="1" Grid.Column="1"
-                             Height="38"
-                             Margin="0,0,0,15"
-                             FontSize="16"
-                             Background="#F9FBFF"
-                             BorderBrush="#9FB3DF"/>
+                             Style="{StaticResource TextBoxStyleComun}"/>
 
                     <Label x:Name="lblPret"
                            Grid.Row="2" Grid.Column="0"
                            Content="Pret"
-                           FontSize="20"
-                           FontWeight="SemiBold"
-                           VerticalAlignment="Center"
-                           Margin="0,0,15,15"/>
+                           Style="{StaticResource EtichetaStyle}"/>
 
                     <TextBox x:Name="txtPret"
                              Grid.Row="2" Grid.Column="1"
-                             Height="38"
-                             Margin="0,0,0,15"
-                             FontSize="16"
-                             Background="#F9FBFF"
-                             BorderBrush="#9FB3DF"/>
+                             Style="{StaticResource TextBoxStyleComun}"/>
 
                     <Label x:Name="lblProducator"
                            Grid.Row="3" Grid.Column="0"
                            Content="Producator"
-                           FontSize="20"
-                           FontWeight="SemiBold"
-                           VerticalAlignment="Center"
-                           Margin="0,0,15,15"/>
+                           Style="{StaticResource EtichetaStyle}"/>
 
                     <TextBox x:Name="txtProducator"
                              Grid.Row="3" Grid.Column="1"
-                             Height="38"
-                             Margin="0,0,0,15"
-                             FontSize="16"
-                             Background="#F9FBFF"
-                             BorderBrush="#9FB3DF"/>
+                             Style="{StaticResource TextBoxStyleComun}"/>
 
                     <Label x:Name="lblCategorie"
                            Grid.Row="4" Grid.Column="0"
                            Content="Categorie"
-                           FontSize="20"
-                           FontWeight="SemiBold"
-                           VerticalAlignment="Center"
-                           Margin="0,0,15,15"/>
+                           Style="{StaticResource EtichetaStyle}"/>
 
                     <ComboBox x:Name="cmbCategorie"
                               Grid.Row="4" Grid.Column="1"
-                              Height="38"
-                              Margin="0,0,0,15"
-                              FontSize="16"
-                              Background="#F9FBFF"
-                              BorderBrush="#9FB3DF"/>
+                              Style="{StaticResource ComboBoxStyleComun}"/>
+
+                    <Label x:Name="lblReteta"
+                           Grid.Row="5" Grid.Column="0"
+                           Content="Necesită rețetă"
+                           Style="{StaticResource EtichetaStyle}"/>
+
+                    <StackPanel Grid.Row="5" Grid.Column="1"
+                                Orientation="Horizontal"
+                                Margin="0,0,0,12">
+                        <RadioButton x:Name="rbRetetaDa"
+                                     Content="Da"
+                                     GroupName="Reteta"
+                                     FontSize="16"
+                                     Margin="0,8,20,8"/>
+                        <RadioButton x:Name="rbRetetaNu"
+                                     Content="Nu"
+                                     GroupName="Reteta"
+                                     FontSize="16"
+                                     Margin="0,8,0,8"/>
+                    </StackPanel>
 
                     <Label x:Name="lblModAdministrare"
-                           Grid.Row="5" Grid.Column="0"
+                           Grid.Row="6" Grid.Column="0"
                            Content="Mod administrare"
-                           FontSize="20"
-                           FontWeight="SemiBold"
-                           VerticalAlignment="Top"
-                           Margin="0,0,15,15"/>
+                           Style="{StaticResource EtichetaStyle}"/>
 
-                    <StackPanel Grid.Row="5" Grid.Column="1" Margin="0,0,0,15">
-                        <CheckBox x:Name="chkOral" Content="Oral" FontSize="16" Margin="0,5"/>
-                        <CheckBox x:Name="chkInjectabil" Content="Injectabil" FontSize="16" Margin="0,5"/>
-                        <CheckBox x:Name="chkTopic" Content="Topic" FontSize="16" Margin="0,5"/>
-                        <CheckBox x:Name="chkInhalator" Content="Inhalator" FontSize="16" Margin="0,5"/>
+                    <StackPanel Grid.Row="6" Grid.Column="1"
+                                Margin="0,0,0,12">
+                        <CheckBox x:Name="chkOral" Content="Oral" FontSize="16" Margin="0,4"/>
+                        <CheckBox x:Name="chkInjectabil" Content="Injectabil" FontSize="16" Margin="0,4"/>
+                        <CheckBox x:Name="chkTopic" Content="Topic" FontSize="16" Margin="0,4"/>
+                        <CheckBox x:Name="chkInhalator" Content="Inhalator" FontSize="16" Margin="0,4"/>
                     </StackPanel>
 
-                    <TextBlock x:Name="txtMesajEroare"
-                               Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
-                               Foreground="Red"
-                               FontSize="15"
-                               FontWeight="SemiBold"
-                               TextWrapping="Wrap"
-                               Visibility="Collapsed"
-                               Margin="0,10,0,20"/>
+                    <WrapPanel Grid.Row="7" Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               Margin="0,18,0,0"
+                               ItemHeight="60">
 
-                    <StackPanel Grid.Row="7" Grid.Column="1"
-                                Orientation="Horizontal"
-                                HorizontalAlignment="Left">
                         <Button x:Name="btnAdauga"
-                                Content="Adaugă"
-                                Width="170"
-                                Height="45"
-                                Margin="0,0,15,0"
-                                Background="#1F3C88"
-                                Foreground="White"
-                                FontWeight="Bold"
-                                FontSize="16"
-                                BorderThickness="0"
-                                Cursor="Hand"
-                                Click="btnAdauga_Click"/>
+                                Style="{StaticResource ButonPrincipalStyle}"
+                                Click="btnAdauga_Click">
+                            <TextBlock Text="Adaugă"
+                                       TextWrapping="Wrap"
+                                       TextAlignment="Center"/>
+                        </Button>
 
                         <Button x:Name="btnReset"
-                                Content="Reset"
-                                Width="170"
-                                Height="45"
-                                Background="#8A94A6"
-                                Foreground="White"
-                                FontWeight="Bold"
-                                FontSize="16"
-                                BorderThickness="0"
-                                Cursor="Hand"
-                                Click="btnReset_Click"/>
-                    </StackPanel>
+                                Style="{StaticResource ButonPrincipalStyle}"
+                                Background="#7B879C"
+                                Click="btnReset_Click">
+                            <TextBlock Text="Reset"
+                                       TextWrapping="Wrap"
+                                       TextAlignment="Center"/>
+                        </Button>
 
-                    <Button x:Name="btnIncarca"
-                            Grid.Row="8" Grid.Column="1"
-                            Content="Încarcă primul medicament"
-                            Height="45"
-                            Width="280"
-                            HorizontalAlignment="Left"
-                            Margin="0,25,0,0"
-                            Background="#2E7D32"
-                            Foreground="White"
-                            FontWeight="Bold"
-                            FontSize="16"
-                            BorderThickness="0"
-                            Cursor="Hand"
-                            Click="btnIncarca_Click"/>
+                        <Button x:Name="btnIncarca"
+                                Style="{StaticResource ButonPrincipalStyle}"
+                                Background="#2E7D32"
+                                Click="btnIncarca_Click">
+                            <TextBlock Text="Încarcă primul&#10;medicament"
+                                       TextWrapping="Wrap"
+                                       TextAlignment="Center"/>
+                        </Button>
+                    </WrapPanel>
                 </Grid>
-            </Border>
-        </Grid>
-    </ScrollViewer>
+
+                <!-- PANOU CAUTARE -->
+                <Grid x:Name="panelCautare" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                               Text="Căutare&#10;medicament după nume"
+                               Style="{StaticResource TitluSectiuneStyle}"/>
+
+                    <Label Grid.Row="1" Grid.Column="0"
+                           Content="Nume căutat"
+                           Style="{StaticResource EtichetaStyle}"/>
+
+                    <TextBox x:Name="txtCautareNume"
+                             Grid.Row="1" Grid.Column="1"
+                             Style="{StaticResource TextBoxStyleComun}"/>
+
+                    <WrapPanel Grid.Row="2" Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               Margin="0,10,0,15"
+                               ItemHeight="60">
+
+                        <Button x:Name="btnCauta"
+                                Style="{StaticResource ButonPrincipalStyle}"
+                                Click="btnCauta_Click">
+                            <TextBlock Text="Caută"
+                                       TextWrapping="Wrap"
+                                       TextAlignment="Center"/>
+                        </Button>
+
+                        <Button x:Name="btnResetCautare"
+                                Style="{StaticResource ButonPrincipalStyle}"
+                                Background="#7B879C"
+                                Click="btnResetCautare_Click">
+                            <TextBlock Text="Reset&#10;căutare"
+                                       TextWrapping="Wrap"
+                                       TextAlignment="Center"/>
+                        </Button>
+                    </WrapPanel>
+
+                    <TextBlock x:Name="txtRezultatCautare"
+                               Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                               FontSize="18"
+                               TextWrapping="Wrap"
+                               Foreground="#1F1F1F"/>
+                </Grid>
+
+                <!-- MESAJ EROARE GLOBAL -->
+                <TextBlock x:Name="txtMesajEroare"
+                           VerticalAlignment="Bottom"
+                           Margin="0,0,0,10"
+                           Foreground="Red"
+                           FontSize="15"
+                           FontWeight="SemiBold"
+                           TextWrapping="Wrap"
+                           Visibility="Collapsed"/>
+            </Grid>
+        </Border>
+    </Grid>
 </Window>

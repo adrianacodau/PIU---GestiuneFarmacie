@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -19,7 +18,8 @@ namespace NivelUIWPF
         ProducatorGol = 16,
         ProducatorPreaLung = 32,
         CategorieInvalida = 64,
-        ModAdministrareLipsa = 128
+        RetetaNespecificata = 128,
+        ModAdministrareLipsa = 256
     }
 
     public partial class MainWindow : Window
@@ -37,7 +37,34 @@ namespace NivelUIWPF
             adminMedicamente = new AdministrareMedicamenteFisierText(caleFisier);
 
             cmbCategorie.ItemsSource = Enum.GetValues(typeof(CategorieMedicament));
+
+            AfiseazaPanelAdministrare();
             ResetFormular();
+            ResetCautare();
+        }
+
+        private void btnMeniuAdministrare_Click(object sender, RoutedEventArgs e)
+        {
+            AfiseazaPanelAdministrare();
+        }
+
+        private void btnMeniuCautare_Click(object sender, RoutedEventArgs e)
+        {
+            AfiseazaPanelCautare();
+        }
+
+        private void AfiseazaPanelAdministrare()
+        {
+            panelAdministrare.Visibility = Visibility.Visible;
+            panelCautare.Visibility = Visibility.Collapsed;
+            txtMesajEroare.Visibility = Visibility.Collapsed;
+        }
+
+        private void AfiseazaPanelCautare()
+        {
+            panelAdministrare.Visibility = Visibility.Collapsed;
+            panelCautare.Visibility = Visibility.Visible;
+            txtMesajEroare.Visibility = Visibility.Collapsed;
         }
 
         private void btnAdauga_Click(object sender, RoutedEventArgs e)
@@ -94,10 +121,48 @@ namespace NivelUIWPF
             txtProducator.Text = medicament.producator;
             cmbCategorie.SelectedItem = medicament.categorie;
 
+            rbRetetaNu.IsChecked = true;
+
             chkOral.IsChecked = medicament.modAdministrare.HasFlag(ModAdministrare.Oral);
             chkInjectabil.IsChecked = medicament.modAdministrare.HasFlag(ModAdministrare.Injectabil);
             chkTopic.IsChecked = medicament.modAdministrare.HasFlag(ModAdministrare.Topic);
             chkInhalator.IsChecked = medicament.modAdministrare.HasFlag(ModAdministrare.Inhalator);
+        }
+
+        private void btnCauta_Click(object sender, RoutedEventArgs e)
+        {
+            string numeCautat = txtCautareNume.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(numeCautat))
+            {
+                txtRezultatCautare.Text = "Introduceți un nume pentru căutare.";
+                txtRezultatCautare.Foreground = Brushes.Red;
+                return;
+            }
+
+            var rezultate = adminMedicamente.CautaDupaNume(numeCautat);
+
+            if (rezultate == null || rezultate.Count == 0)
+            {
+                txtRezultatCautare.Text = "Nu s-a găsit niciun medicament cu numele introdus.";
+                txtRezultatCautare.Foreground = Brushes.Red;
+                return;
+            }
+
+            txtRezultatCautare.Foreground = Brushes.Black;
+            txtRezultatCautare.Text = string.Join(Environment.NewLine + Environment.NewLine,
+                rezultate.Select(m =>
+                    $"Id: {m.IdMedicament}\n" +
+                    $"Nume: {m.nume}\n" +
+                    $"Preț: {m.pret}\n" +
+                    $"Producător: {m.producator}\n" +
+                    $"Categorie: {m.categorie}\n" +
+                    $"Mod administrare: {m.modAdministrare}"));
+        }
+
+        private void btnResetCautare_Click(object sender, RoutedEventArgs e)
+        {
+            ResetCautare();
         }
 
         private EroriValidareMedicament ValideazaDateMedicament()
@@ -122,6 +187,9 @@ namespace NivelUIWPF
             if (cmbCategorie.SelectedItem == null)
                 rezultat |= EroriValidareMedicament.CategorieInvalida;
 
+            if (rbRetetaDa.IsChecked != true && rbRetetaNu.IsChecked != true)
+                rezultat |= EroriValidareMedicament.RetetaNespecificata;
+
             bool existaModAdministrare =
                 chkOral.IsChecked == true ||
                 chkInjectabil.IsChecked == true ||
@@ -138,31 +206,24 @@ namespace NivelUIWPF
         {
             if (erori.HasFlag(EroriValidareMedicament.NumeGol) ||
                 erori.HasFlag(EroriValidareMedicament.NumePreaLung))
-            {
                 lblNume.Foreground = Brushes.Red;
-            }
 
             if (erori.HasFlag(EroriValidareMedicament.PretGol) ||
                 erori.HasFlag(EroriValidareMedicament.PretInvalid))
-            {
                 lblPret.Foreground = Brushes.Red;
-            }
 
             if (erori.HasFlag(EroriValidareMedicament.ProducatorGol) ||
                 erori.HasFlag(EroriValidareMedicament.ProducatorPreaLung))
-            {
                 lblProducator.Foreground = Brushes.Red;
-            }
 
             if (erori.HasFlag(EroriValidareMedicament.CategorieInvalida))
-            {
                 lblCategorie.Foreground = Brushes.Red;
-            }
+
+            if (erori.HasFlag(EroriValidareMedicament.RetetaNespecificata))
+                lblReteta.Foreground = Brushes.Red;
 
             if (erori.HasFlag(EroriValidareMedicament.ModAdministrareLipsa))
-            {
                 lblModAdministrare.Foreground = Brushes.Red;
-            }
         }
 
         private void AfiseazaMesajEroare(EroriValidareMedicament erori)
@@ -190,6 +251,9 @@ namespace NivelUIWPF
             if (erori.HasFlag(EroriValidareMedicament.CategorieInvalida))
                 mesaj += "- Categoria trebuie selectată.\n";
 
+            if (erori.HasFlag(EroriValidareMedicament.RetetaNespecificata))
+                mesaj += "- Selectați dacă medicamentul necesită rețetă.\n";
+
             if (erori.HasFlag(EroriValidareMedicament.ModAdministrareLipsa))
                 mesaj += "- Selectați cel puțin un mod de administrare.\n";
 
@@ -204,6 +268,9 @@ namespace NivelUIWPF
             txtProducator.Text = string.Empty;
             cmbCategorie.SelectedItem = null;
 
+            rbRetetaDa.IsChecked = false;
+            rbRetetaNu.IsChecked = false;
+
             chkOral.IsChecked = false;
             chkInjectabil.IsChecked = false;
             chkTopic.IsChecked = false;
@@ -212,12 +279,20 @@ namespace NivelUIWPF
             ReseteazaErori();
         }
 
+        private void ResetCautare()
+        {
+            txtCautareNume.Text = string.Empty;
+            txtRezultatCautare.Text = string.Empty;
+            txtRezultatCautare.Foreground = Brushes.Black;
+        }
+
         private void ReseteazaErori()
         {
             lblNume.Foreground = Brushes.Black;
             lblPret.Foreground = Brushes.Black;
             lblProducator.Foreground = Brushes.Black;
             lblCategorie.Foreground = Brushes.Black;
+            lblReteta.Foreground = Brushes.Black;
             lblModAdministrare.Foreground = Brushes.Black;
 
             txtMesajEroare.Text = string.Empty;
