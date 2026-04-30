@@ -3,10 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:NivelUIWPF"
         mc:Ignorable="d"
         Title="Gestiune Farmacie"
-        Height="760"
+        Height="800"
         Width="1180"
         MinWidth="900"
         MinHeight="650"
@@ -85,7 +84,6 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- MENIU -->
         <Border Grid.Column="0"
                 Background="#1F3C88"
                 CornerRadius="16"
@@ -112,10 +110,17 @@
                                TextWrapping="Wrap"
                                TextAlignment="Center"/>
                 </Button>
+
+                <Button x:Name="btnMeniuModifica"
+                        Style="{StaticResource ButonMeniuStyle}"
+                        Click="btnMeniuModifica_Click">
+                    <TextBlock Text="Modifică&#10;medicament"
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"/>
+                </Button>
             </StackPanel>
         </Border>
 
-        <!-- ZONA CONTINUT -->
         <Border Grid.Column="2"
                 Background="White"
                 CornerRadius="16"
@@ -124,9 +129,10 @@
                 BorderThickness="1">
 
             <Grid>
-                <!-- PANOU ADMINISTRARE -->
+                <!-- PANEL ADMINISTRARE -->
                 <Grid x:Name="panelAdministrare">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -138,109 +144,94 @@
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="140"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="260"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                               Text="Administrare&#10;medicament"
-                               Style="{StaticResource TitluSectiuneStyle}"/>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="4"
+                               Text="Administrare medicament"
+                               Style="{StaticResource TitluSectiuneStyle}"
+                               FontSize="22"
+                               Margin="0,0,0,30"/>
 
-                    <Label x:Name="lblNume"
-                           Grid.Row="1" Grid.Column="0"
-                           Content="Nume"
-                           Style="{StaticResource EtichetaStyle}"/>
-
-                    <TextBox x:Name="txtNume"
-                             Grid.Row="1" Grid.Column="1"
+                    <Label x:Name="lblNume" Grid.Row="1" Grid.Column="0"
+                           Content="Nume" Style="{StaticResource EtichetaStyle}" FontSize="14"/>
+                    <TextBox x:Name="txtNume" Grid.Row="1" Grid.Column="1"
                              Style="{StaticResource TextBoxStyleComun}"/>
 
-                    <Label x:Name="lblPret"
-                           Grid.Row="2" Grid.Column="0"
-                           Content="Pret"
-                           Style="{StaticResource EtichetaStyle}"/>
-
-                    <TextBox x:Name="txtPret"
-                             Grid.Row="2" Grid.Column="1"
+                    <Label x:Name="lblPret" Grid.Row="1" Grid.Column="2"
+                           Content="Preț" Style="{StaticResource EtichetaStyle}"
+                           FontSize="14" Margin="25,0,10,12"/>
+                    <TextBox x:Name="txtPret" Grid.Row="1" Grid.Column="3"
                              Style="{StaticResource TextBoxStyleComun}"/>
 
-                    <Label x:Name="lblProducator"
-                           Grid.Row="3" Grid.Column="0"
-                           Content="Producator"
-                           Style="{StaticResource EtichetaStyle}"/>
-
-                    <TextBox x:Name="txtProducator"
-                             Grid.Row="3" Grid.Column="1"
+                    <Label x:Name="lblProducator" Grid.Row="2" Grid.Column="0"
+                           Content="Producător" Style="{StaticResource EtichetaStyle}" FontSize="14"/>
+                    <TextBox x:Name="txtProducator" Grid.Row="2" Grid.Column="1"
                              Style="{StaticResource TextBoxStyleComun}"/>
 
-                    <Label x:Name="lblCategorie"
-                           Grid.Row="4" Grid.Column="0"
-                           Content="Categorie"
-                           Style="{StaticResource EtichetaStyle}"/>
-
-                    <ComboBox x:Name="cmbCategorie"
-                              Grid.Row="4" Grid.Column="1"
+                    <Label x:Name="lblCategorie" Grid.Row="2" Grid.Column="2"
+                           Content="Categorie" Style="{StaticResource EtichetaStyle}"
+                           FontSize="14" Margin="25,0,10,12"/>
+                    <ComboBox x:Name="cmbCategorie" Grid.Row="2" Grid.Column="3"
                               Style="{StaticResource ComboBoxStyleComun}"/>
 
-                    <Label x:Name="lblReteta"
-                           Grid.Row="5" Grid.Column="0"
-                           Content="Necesită rețetă"
-                           Style="{StaticResource EtichetaStyle}"/>
+                    <Label x:Name="lblReteta" Grid.Row="3" Grid.Column="0"
+                           Content="Necesită rețetă" Style="{StaticResource EtichetaStyle}" FontSize="14"/>
 
-                    <StackPanel Grid.Row="5" Grid.Column="1"
-                                Orientation="Horizontal"
-                                Margin="0,0,0,12">
-                        <RadioButton x:Name="rbRetetaDa"
-                                     Content="Da"
-                                     GroupName="Reteta"
-                                     FontSize="16"
-                                     Margin="0,8,20,8"/>
-                        <RadioButton x:Name="rbRetetaNu"
-                                     Content="Nu"
-                                     GroupName="Reteta"
-                                     FontSize="16"
-                                     Margin="0,8,0,8"/>
+                    <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"
+                                Orientation="Horizontal" Margin="0,0,0,12">
+                        <RadioButton x:Name="rbRetetaDa" Content="Da" GroupName="Reteta" FontSize="14" Margin="0,8,25,8"/>
+                        <RadioButton x:Name="rbRetetaNu" Content="Nu" GroupName="Reteta" FontSize="14" Margin="0,8,0,8"/>
                     </StackPanel>
 
-                    <Label x:Name="lblModAdministrare"
-                           Grid.Row="6" Grid.Column="0"
-                           Content="Mod administrare"
-                           Style="{StaticResource EtichetaStyle}"/>
+                    <Label x:Name="lblModAdministrare" Grid.Row="4" Grid.Column="0"
+                           Content="Mod administrare" Style="{StaticResource EtichetaStyle}" FontSize="14"/>
 
-                    <StackPanel Grid.Row="6" Grid.Column="1"
-                                Margin="0,0,0,12">
-                        <CheckBox x:Name="chkOral" Content="Oral" FontSize="16" Margin="0,4"/>
-                        <CheckBox x:Name="chkInjectabil" Content="Injectabil" FontSize="16" Margin="0,4"/>
-                        <CheckBox x:Name="chkTopic" Content="Topic" FontSize="16" Margin="0,4"/>
-                        <CheckBox x:Name="chkInhalator" Content="Inhalator" FontSize="16" Margin="0,4"/>
+                    <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"
+                                Orientation="Horizontal" Margin="0,0,0,20">
+                        <CheckBox x:Name="chkOral" Content="Oral" FontSize="14" Margin="0,4,35,4"/>
+                        <CheckBox x:Name="chkInjectabil" Content="Injectabil" FontSize="14" Margin="0,4,35,4"/>
+                        <CheckBox x:Name="chkTopic" Content="Topic" FontSize="14" Margin="0,4,35,4"/>
+                        <CheckBox x:Name="chkInhalator" Content="Inhalator" FontSize="14" Margin="0,4"/>
                     </StackPanel>
 
-                    <WrapPanel Grid.Row="7" Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               Margin="0,18,0,0"
-                               ItemHeight="60">
+                    <Label x:Name="lblFormaMedicament" Grid.Row="5" Grid.Column="0"
+                           Content="Formă medicament" Style="{StaticResource EtichetaStyle}" FontSize="14"/>
 
-                        <Button x:Name="btnAdauga"
-                                Style="{StaticResource ButonPrincipalStyle}"
-                                Click="btnAdauga_Click">
-                            <TextBlock Text="Adaugă"
-                                       TextWrapping="Wrap"
-                                       TextAlignment="Center"/>
+                    <ComboBox x:Name="cmbFormaMedicament" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
+                              Height="36" FontSize="15" Margin="0,0,0,20"
+                              Background="#F9FBFF" BorderBrush="#9FB3DF"/>
+
+                    <Label x:Name="lblDataExpirare" Grid.Row="6" Grid.Column="0"
+                           Content="Data expirării" Style="{StaticResource EtichetaStyle}" FontSize="14"/>
+
+                    <DatePicker x:Name="dtpDataExpirare" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3"
+                                Height="36" FontSize="15" Margin="0,0,0,25"
+                                SelectedDateFormat="Short"
+                                Background="#F9FBFF" BorderBrush="#9FB3DF"/>
+
+                    <Border Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4"
+                            Height="1" Background="#D9E2F1" Margin="0,0,0,25"/>
+
+                    <WrapPanel Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3"
+                               HorizontalAlignment="Center" ItemHeight="60">
+                        <Button x:Name="btnAdauga" Style="{StaticResource ButonPrincipalStyle}"
+                                Width="190" Click="btnAdauga_Click">
+                            <TextBlock Text="Adaugă" TextWrapping="Wrap" TextAlignment="Center"/>
                         </Button>
 
-                        <Button x:Name="btnReset"
-                                Style="{StaticResource ButonPrincipalStyle}"
-                                Background="#7B879C"
-                                Click="btnReset_Click">
-                            <TextBlock Text="Reset"
-                                       TextWrapping="Wrap"
-                                       TextAlignment="Center"/>
+                        <Button x:Name="btnReset" Style="{StaticResource ButonPrincipalStyle}"
+                                Width="190" Background="#7B879C" Click="btnReset_Click">
+                            <TextBlock Text="Reset" TextWrapping="Wrap" TextAlignment="Center"/>
                         </Button>
 
-                        <Button x:Name="btnIncarca"
-                                Style="{StaticResource ButonPrincipalStyle}"
-                                Background="#2E7D32"
-                                Click="btnIncarca_Click">
+                        <Button x:Name="btnIncarca" Style="{StaticResource ButonPrincipalStyle}"
+                                Width="190" Background="#2E7D32" Click="btnIncarca_Click">
                             <TextBlock Text="Încarcă primul&#10;medicament"
                                        TextWrapping="Wrap"
                                        TextAlignment="Center"/>
@@ -248,7 +239,7 @@
                     </WrapPanel>
                 </Grid>
 
-                <!-- PANOU CAUTARE -->
+                <!-- PANEL CAUTARE -->
                 <Grid x:Name="panelCautare" Visibility="Collapsed">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -263,48 +254,210 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                               Text="Căutare&#10;medicament după nume"
-                               Style="{StaticResource TitluSectiuneStyle}"/>
+                               Text="Căutare medicament după nume"
+                               Style="{StaticResource TitluSectiuneStyle}"
+                               FontSize="22"/>
 
                     <Label Grid.Row="1" Grid.Column="0"
                            Content="Nume căutat"
                            Style="{StaticResource EtichetaStyle}"/>
 
                     <TextBox x:Name="txtCautareNume"
-                             Grid.Row="1" Grid.Column="1"
+                             Grid.Row="1"
+                             Grid.Column="1"
                              Style="{StaticResource TextBoxStyleComun}"/>
 
                     <WrapPanel Grid.Row="2" Grid.Column="1"
                                HorizontalAlignment="Left"
                                Margin="0,10,0,15"
                                ItemHeight="60">
-
                         <Button x:Name="btnCauta"
                                 Style="{StaticResource ButonPrincipalStyle}"
                                 Click="btnCauta_Click">
-                            <TextBlock Text="Caută"
-                                       TextWrapping="Wrap"
-                                       TextAlignment="Center"/>
+                            <TextBlock Text="Caută" TextWrapping="Wrap" TextAlignment="Center"/>
                         </Button>
 
                         <Button x:Name="btnResetCautare"
                                 Style="{StaticResource ButonPrincipalStyle}"
                                 Background="#7B879C"
                                 Click="btnResetCautare_Click">
-                            <TextBlock Text="Reset&#10;căutare"
-                                       TextWrapping="Wrap"
-                                       TextAlignment="Center"/>
+                            <TextBlock Text="Reset&#10;căutare" TextWrapping="Wrap" TextAlignment="Center"/>
                         </Button>
                     </WrapPanel>
 
                     <TextBlock x:Name="txtRezultatCautare"
-                               Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                               Grid.Row="3"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
                                FontSize="18"
                                TextWrapping="Wrap"
                                Foreground="#1F1F1F"/>
                 </Grid>
 
-                <!-- MESAJ EROARE GLOBAL -->
+                <!-- PANEL MODIFICARE -->
+                <Grid x:Name="panelModifica" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="260"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="4"
+                               Text="Modifică medicament"
+                               Style="{StaticResource TitluSectiuneStyle}"
+                               FontSize="22"
+                               Margin="0,0,0,25"/>
+
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="Medicament"
+                           Style="{StaticResource EtichetaStyle}"
+                           FontSize="14"/>
+
+                    <ComboBox x:Name="cmbMedicamenteModifica"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              Grid.ColumnSpan="3"
+                              Height="36"
+                              FontSize="15"
+                              Margin="0,0,0,20"
+                              DisplayMemberPath="Text"
+                              SelectionChanged="cmbMedicamenteModifica_SelectionChanged"/>
+
+                    <Label Grid.Row="2" Grid.Column="0"
+                           Content="Nume"
+                           Style="{StaticResource EtichetaStyle}"
+                           FontSize="14"/>
+
+                    <TextBox x:Name="txtModNume"
+                             Grid.Row="2"
+                             Grid.Column="1"
+                             Style="{StaticResource TextBoxStyleComun}"/>
+
+                    <Label Grid.Row="2" Grid.Column="2"
+                           Content="Preț"
+                           Style="{StaticResource EtichetaStyle}"
+                           FontSize="14"
+                           Margin="25,0,10,12"/>
+
+                    <TextBox x:Name="txtModPret"
+                             Grid.Row="2"
+                             Grid.Column="3"
+                             Style="{StaticResource TextBoxStyleComun}"/>
+
+                    <Label Grid.Row="3" Grid.Column="0"
+                           Content="Producător"
+                           Style="{StaticResource EtichetaStyle}"
+                           FontSize="14"/>
+
+                    <TextBox x:Name="txtModProducator"
+                             Grid.Row="3"
+                             Grid.Column="1"
+                             Style="{StaticResource TextBoxStyleComun}"/>
+
+                    <Label Grid.Row="3" Grid.Column="2"
+                           Content="Categorie"
+                           Style="{StaticResource EtichetaStyle}"
+                           FontSize="14"
+                           Margin="25,0,10,12"/>
+
+                    <ComboBox x:Name="cmbModCategorie"
+                              Grid.Row="3"
+                              Grid.Column="3"
+                              Style="{StaticResource ComboBoxStyleComun}"/>
+
+                    <Label Grid.Row="4" Grid.Column="0"
+                           Content="Mod administrare"
+                           Style="{StaticResource EtichetaStyle}"
+                           FontSize="14"/>
+
+                    <StackPanel Grid.Row="4"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                Orientation="Horizontal"
+                                Margin="0,0,0,20">
+                        <CheckBox x:Name="chkModOral" Content="Oral" FontSize="14" Margin="0,4,35,4"/>
+                        <CheckBox x:Name="chkModInjectabil" Content="Injectabil" FontSize="14" Margin="0,4,35,4"/>
+                        <CheckBox x:Name="chkModTopic" Content="Topic" FontSize="14" Margin="0,4,35,4"/>
+                        <CheckBox x:Name="chkModInhalator" Content="Inhalator" FontSize="14" Margin="0,4"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="170"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0"
+                                   Content="Formă medicament"
+                                   Style="{StaticResource EtichetaStyle}"
+                                   FontSize="14"/>
+
+                            <ComboBox x:Name="cmbModFormaMedicament"
+                                      Grid.Row="0"
+                                      Grid.Column="1"
+                                      Height="36"
+                                      FontSize="15"
+                                      Margin="0,0,0,20"
+                                      Background="#F9FBFF"
+                                      BorderBrush="#9FB3DF"/>
+
+                            <Label Grid.Row="1" Grid.Column="0"
+                                   Content="Data expirării"
+                                   Style="{StaticResource EtichetaStyle}"
+                                   FontSize="14"/>
+
+                            <DatePicker x:Name="dtpModDataExpirare"
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Height="36"
+                                        FontSize="15"
+                                        Margin="0,0,0,25"
+                                        SelectedDateFormat="Short"
+                                        Background="#F9FBFF"
+                                        BorderBrush="#9FB3DF"/>
+
+                            <Button x:Name="btnActualizeaza"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Content="Actualizează"
+                                    Width="200"
+                                    Height="44"
+                                    HorizontalAlignment="Left"
+                                    Style="{StaticResource ButonPrincipalStyle}"
+                                    Click="btnActualizeaza_Click"/>
+
+                            <TextBlock x:Name="txtMesajModificare"
+                                       Grid.Row="3"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       TextWrapping="Wrap"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+
                 <TextBlock x:Name="txtMesajEroare"
                            VerticalAlignment="Bottom"
                            Margin="0,0,0,10"

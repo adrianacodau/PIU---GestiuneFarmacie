@@ -143,7 +143,16 @@ namespace GestiuneFarmacie
             if ((Console.ReadLine() ?? "").ToLower() == "da")
                 modAdministrare |= ModAdministrare.Inhalator;
 
-            return new Medicament(0, nume, pret, producator, categorie, modAdministrare);
+            return new Medicament(
+                    0,
+                    nume,
+                    pret,
+                    producator,
+                    categorie,
+                    modAdministrare,
+                    "Tablete",
+                    DateTime.Today.AddYears(1)
+                );
         }
         private static void MeniuProducatori(IStocareProducatori adminProducatori)
         {
