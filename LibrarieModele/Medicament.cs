@@ -7,15 +7,15 @@ namespace LibrarieModele
         private const char SEPARATOR_PRINCIPAL_FISIER = ';';
 
         public int IdMedicament { get; set; }
-        public string nume;
-        public float pret;
-        public string producator;
-        public CategorieMedicament categorie;
-        public ModAdministrare modAdministrare;
-        public string formaMedicament;
-        public DateTime dataExpirare;
 
-        //constructor implicit
+        public string nume { get; set; }
+        public float pret { get; set; }
+        public string producator { get; set; }
+        public CategorieMedicament categorie { get; set; }
+        public ModAdministrare modAdministrare { get; set; }
+        public string formaMedicament { get; set; }
+        public DateTime dataExpirare { get; set; }
+
         public Medicament()
         {
             IdMedicament = 0;
@@ -24,28 +24,33 @@ namespace LibrarieModele
             producator = string.Empty;
             categorie = CategorieMedicament.Altul;
             modAdministrare = ModAdministrare.Niciuna;
-
             formaMedicament = "Tablete";
             dataExpirare = DateTime.Today.AddYears(1);
         }
-        //constructor cu parametri
-        public Medicament(int idMedicament, string nume, float pret, string producator,
-             CategorieMedicament categorie, ModAdministrare modAdministrare,
-             string formaMedicament, DateTime dataExpirare)
-                {
-                    IdMedicament = idMedicament;
-                    this.nume = nume;
-                    this.pret = pret;
-                    this.producator = producator;
-                    this.categorie = categorie;
-                    this.modAdministrare = modAdministrare;
-                    this.formaMedicament = formaMedicament;
-                    this.dataExpirare = dataExpirare;
-                }
+
+        public Medicament(
+            int idMedicament,
+            string nume,
+            float pret,
+            string producator,
+            CategorieMedicament categorie,
+            ModAdministrare modAdministrare,
+            string formaMedicament,
+            DateTime dataExpirare)
+        {
+            IdMedicament = idMedicament;
+            this.nume = nume;
+            this.pret = pret;
+            this.producator = producator;
+            this.categorie = categorie;
+            this.modAdministrare = modAdministrare;
+            this.formaMedicament = formaMedicament;
+            this.dataExpirare = dataExpirare;
+        }
 
         public Medicament(string linieFisier)
         {
-            var dateFisier = linieFisier.Split(SEPARATOR_PRINCIPAL_FISIER);
+            string[] dateFisier = linieFisier.Split(SEPARATOR_PRINCIPAL_FISIER);
 
             IdMedicament = Convert.ToInt32(dateFisier[0]);
             nume = dateFisier[1];
@@ -53,23 +58,16 @@ namespace LibrarieModele
             producator = dateFisier[3];
             categorie = (CategorieMedicament)Enum.Parse(typeof(CategorieMedicament), dateFisier[4]);
             modAdministrare = (ModAdministrare)Enum.Parse(typeof(ModAdministrare), dateFisier[5]);
+
             if (dateFisier.Length > 6)
-            {
                 formaMedicament = dateFisier[6];
-            }
             else
-            {
                 formaMedicament = "Tablete";
-            }
 
             if (dateFisier.Length > 7 && DateTime.TryParse(dateFisier[7], out DateTime data))
-            {
                 dataExpirare = data;
-            }
             else
-            {
                 dataExpirare = DateTime.Today.AddYears(1);
-            }
         }
 
         public string ConversieLaSirPentruFisier()
